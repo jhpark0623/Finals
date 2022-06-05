@@ -17,10 +17,10 @@
         const url = "https://apis.data.go.kr/B552584/EvCharger/getChargerInfo?serviceKey=tyEL%2BUKZLOpwdsr2K1Fxtcd%2FqTn7q1moG%2FWwI6ZRy16URdmRHw%2B5ouU6zk6LHiKfVdul95BV%2FqOfvbB4D4Kk7w%3D%3D&pageNo=1&numOfRows=10&zcode=26"
 
         function makeOverListener(map, marker, infowindow) {
-        return function () {
-          infowindow.open(map, marker);
-        };
-      }
+            return function () {
+                infowindow.open(map, marker);
+            };
+        }
 
 
 
@@ -61,7 +61,7 @@
                     });
 
                     var infowindow = new kakao.maps.InfoWindow({
-                        content: stores[i]["centerName"],
+                        content: stores[i]["statNm"],
                     });
 
                     markers.push(marker);
