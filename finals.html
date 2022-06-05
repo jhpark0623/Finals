@@ -1,73 +1,80 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <title>geolocation으로 마커 표시하기</title>
-    
+
 </head>
+
 <body>
 
-<div id="map" style="width:100%;height:100vh;"></div>
+    <div id="map" style="width:100%;height:100vh;"></div>
 
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2beedd779b41551797a20a14f71a157f"></script>
-<script>
-var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-    mapOption = { 
-        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-        level: 10 // 지도의 확대 레벨 
-    }; 
+    <script type="text/javascript"
+        src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=2beedd779b41551797a20a14f71a157f"></script>
+    <script>
+        const url = "https://apis.data.go.kr/B552584/EvCharger/getChargerInfo?serviceKey=tyEL%2BUKZLOpwdsr2K1Fxtcd%2FqTn7q1moG%2FWwI6ZRy16URdmRHw%2B5ouU6zk6LHiKfVdul95BV%2FqOfvbB4D4Kk7w%3D%3D&pageNo=1&numOfRows=10&zcode=26"
 
-var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+        function makeOverListener(map, marker, infowindow) {
+        return function () {
+          infowindow.open(map, marker);
+        };
+      }
 
-// HTML5의 geolocation으로 사용할 수 있는지 확인합니다 
-if (navigator.geolocation) {
-    
-    // GeoLocation을 이용해서 접속 위치를 얻어옵니다
-    navigator.geolocation.getCurrentPosition(function(position) {
-        
-        var lat = position.coords.latitude, // 위도
-            lon = position.coords.longitude; // 경도
-        
-        var locPosition = new kakao.maps.LatLng(37.571076, 126.99588), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
-            message = '<div style="padding:5px;">여기에 계신가요?!</div>'; // 인포윈도우에 표시될 내용입니다
-        
-        // 마커와 인포윈도우를 표시합니다
-        displayMarker(locPosition, message);
-            
-      });
-    
-} else { // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정합니다
-    
-    var locPosition = new kakao.maps.LatLng(33.450701, 126.570667),    
-        message = 'geolocation을 사용할수 없어요..'
-        
-    displayMarker(locPosition, message);
-}
 
-// 지도에 마커와 인포윈도우를 표시하는 함수입니다
-function displayMarker(locPosition, message) {
 
-    // 마커를 생성합니다
-    var marker = new kakao.maps.Marker({  
-        map: map, 
-        position: locPosition
-    }); 
-    
-    var iwContent = message, // 인포윈도우에 표시할 내용
-        iwRemoveable = true;
+        // 인포윈도우를 닫는 클로저를 만드는 함수입니다
+        function makeOutListener(infowindow) {
+            return function () {
+                infowindow.close();
+            };
+        }
 
-    // 인포윈도우를 생성합니다
-    var infowindow = new kakao.maps.InfoWindow({
-        content : iwContent,
-        removable : iwRemoveable
-    });
-    
-    // 인포윈도우를 마커위에 표시합니다 
-    infowindow.open(map, marker);
-    
-    // 지도 중심좌표를 접속위치로 변경합니다
-    map.setCenter(locPosition);      
-}    
-</script>
+        var mapContainer = document.getElementById("map"), // 지도를 표시할 div
+            mapOption = {
+                center: new kakao.maps.LatLng(37.60504, 127.05591), // 지도의 중심좌표
+                level: 3, // 지도의 확대 레벨
+            };
+
+        var map = new kakao.maps.Map(mapContainer, mapOption);
+
+        var clusterer = new kakao.maps.MarkerClusterer({
+            map: map, // 마커들을 클러스터로 관리하고 표시할 지도 객체
+            averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정
+            minLevel: 5, // 클러스터 할 최소 지도 레벨
+        });
+
+
+        fetch(url)
+            .then((res) => res.json())
+            .then((myJson) => {
+                var markers = [];
+                const stores = myJson.data;
+                console.log(JSON.stringify(myJson, null, 1));
+
+                console.log(stores);
+                for (var i = 0; i < stores.length; i++) {
+                    var marker = new kakao.maps.Marker({
+                        position: new kakao.maps.LatLng(stores[i]["lat"], stores[i]["lng"]),
+                        map: map,
+                    });
+
+                    var infowindow = new kakao.maps.InfoWindow({
+                        content: stores[i]["centerName"],
+                    });
+
+                    markers.push(marker);
+
+                    kakao.maps.event.addListener(marker, "mouseover", makeOverListener(map, marker, infowindow));
+                    kakao.maps.event.addListener(marker, "mouseout", makeOutListener(infowindow));
+                }
+
+                clusterer.addMarkers(markers);
+            });
+
+
+    </script>
 </body>
+
 </html>
