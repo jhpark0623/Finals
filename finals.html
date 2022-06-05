@@ -13,6 +13,9 @@
 
     <script>
 
+
+
+        var container = document.getElementById('map');
         navigator.geolocation.getCurrentPosition(function (position) {
 
             var lat = position.coords.latitude, // 위도
@@ -25,9 +28,6 @@
             displayMarker(locPosition);
 
         });
-
-        var container = document.getElementById('map');
-
         var options = {
             center: new kakao.maps.LatLng(lat, lon),
             level: 10
