@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <title>geolocation으로 마커 표시하기</title>
-
+    
 </head>
 
 <body>
@@ -14,7 +14,14 @@
     <script type="text/javascript"
         src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2beedd779b41551797a20a14f71a157f"></script>
     <script>
-        const url = "https://apis.data.go.kr/B552584/EvCharger/getChargerInfo?serviceKey=tyEL%2BUKZLOpwdsr2K1Fxtcd%2FqTn7q1moG%2FWwI6ZRy16URdmRHw%2B5ouU6zk6LHiKfVdul95BV%2FqOfvbB4D4Kk7w%3D%3D&pageNo=1&numOfRows=10&zcode=11&_returnType=json"
+
+        var xhr = new XMLHttpRequest();
+    var url = 'http://apis.data.go.kr/B552584/EvCharger/getChargerStatus'; /*URL*/
+    var queryParams = '?' + encodeURIComponent('serviceKey') + '='+'tyEL%2BUKZLOpwdsr2K1Fxtcd%2FqTn7q1moG%2FWwI6ZRy16URdmRHw%2B5ouU6zk6LHiKfVdul95BV%2FqOfvbB4D4Kk7w%3D%3D'; /*Service Key*/
+    queryParams += '&' + encodeURIComponent('pageNo') + '=' + encodeURIComponent('1'); /**/
+    queryParams += '&' + encodeURIComponent('numOfRows') + '=' + encodeURIComponent('10'); /**/
+    queryParams += '&' + encodeURIComponent('period') + '=' + encodeURIComponent('5'); /**/
+    queryParams += '&' + encodeURIComponent('zcode') + '=' + encodeURIComponent('11'); /**/
 
         function makeOverListener(map, marker, infowindow) {
             return function () {
@@ -46,7 +53,7 @@
         });
 
 
-        fetch(url)
+        fetch(url+queryParams)
             .then((res) => res.json())
             .then((myJson) => {
                 var markers = [];
