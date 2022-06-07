@@ -21,8 +21,11 @@
         console.log("tlqkf");
 
         let xhttp = new XMLHttpRequest();
+        console.log("tlqkf");
         xhttp.open("GET", "electric vehicle heavy station.json", true);
+        console.log("tlqkf");
         xhttp.onreadystatechange = function () {
+            console.log("tlqkf");
             if (xhttp.readyState == 4 && xhttp.status == 200) {
                 jsonfunc(this.responseText);
             }
