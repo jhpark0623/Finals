@@ -58,7 +58,7 @@
                 // 정상적으로 검색이 완료됐으면
 
                 coords[i] = new kakao.maps.LatLng(result[0].y, result[0].x);
-
+                console.log(coords[i]);
 
 
                 var marker = new kakao.maps.Marker({
@@ -67,7 +67,6 @@
                     title: name[i], // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
                     image: markerImage // 마커 이미지
                 });
-
             });
         }
 
