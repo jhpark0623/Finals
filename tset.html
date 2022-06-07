@@ -42,7 +42,7 @@
 
             geocoder.addressSearch(address[i], function (result, status) {
                 // 정상적으로 검색이 완료됐으면
-                if (status === kakao.maps.services.Status.OK) {
+                
                     coords[i] = new kakao.maps.LatLng(result[0].y, result[0].x);
 
                     map.setCenter(coords[i]);
@@ -53,7 +53,7 @@
                         title: name[i], // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
                         image: markerImage // 마커 이미지
                     });
-                }
+                
             });
         }
     </script>
