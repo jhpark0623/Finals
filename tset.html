@@ -24,12 +24,11 @@
         xhttp.onreadystatechange = function () {
             if (xhttp.readyState == 4 && xhttp.status == 200) {
                 jsonfunc(this.responseText); //this = xhttp
-                //		jsonfunc(xhttp.responseText); // 둘다 가능
+                console.log("tlqkf");
             }
         }
         xhttp.open("GET", "electric vehicle heavy station.json", true);
-        xhttp.send(null);
-
+        
         function jsonfunc(jsonText) {
 
             let json = JSON.parse(jsonText); // String -> json으로 변환
