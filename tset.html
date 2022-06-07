@@ -27,7 +27,7 @@
                 jsonfunc(this.responseText);
             }
         }
-        xhttp.open("GET", "전기자동차 충전소 위치.json", true);
+        xhttp.open("GET", "electric vehicle heavy station.json", true);
 
         function jsonfunc(jsonText) {
 
@@ -36,8 +36,8 @@
             let txt = "";
             // 접근법 1
             for (i = 0; i < 10; i++) {
-                name[i] = json[i].충전소명;
-                address[i] = json[i].주소;
+                name[i] = json[i].name;
+                address[i] = json[i].add;
                 console.log(name[i], address[i]);
             }
 
