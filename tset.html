@@ -19,8 +19,29 @@
         var name = ['qw', 'qww'];
         var address = ['경기도 고양시 일산서구 가좌 3로 45', '경기도 고양시 일산서구 가좌1로 43'];
         console.log("tlqkf");
-        
 
+        let xhttp = new XMLHttpRequest();
+
+        xhttp.onreadystatechange = function () {
+            if (xhttp.readyState == 4 && xhttp.status == 200) {
+                jsonfunc(this.responseText);
+            }
+        }
+        xhttp.open("GET", "전기자동차 충전소 위치.json", true);
+
+        function jsonfunc(jsonText) {
+
+            let json = JSON.parse(jsonText); // String -> json으로 변환
+
+            let txt = "";
+            // 접근법 1
+            for (i = 0; i < 10; i++) {
+                name[i] = json[i].충전소명;
+                address[i] = json[i].주소;
+                console.log(name[i], address[i]);
+            }
+
+        }
 
 
         var mapContainer = document.getElementById('map'), // 지도를 표시할 div
