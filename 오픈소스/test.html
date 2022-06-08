@@ -94,10 +94,10 @@
                     coords[j] = new kakao.maps.LatLng(result[0].y, result[0].x);
                    
                 });
-                console.log(j + " / " +coords[j]);
+                console.log(j + " / " +geocoder.coords[j]);
                 var marker = new kakao.maps.Marker({
                         map: map, // 마커를 표시할 지도
-                        position: coords[j], // 마커를 표시할 위치
+                        position: geocoder.coords[j], // 마커를 표시할 위치
                         title: name[j], // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
                         image: markerImage // 마커 이미지
                     });
