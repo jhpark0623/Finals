@@ -42,7 +42,7 @@
 
             let txt = "";
             // 접근법 1
-            for (i = 0; i < 10; i++) {
+            for (i = 0; i < 20; i++) {
                 name[i] = json[i].name;
                 address[i] = json[i].add;
                 console.log(name[i], address[i]);
@@ -50,12 +50,6 @@
 
         }
 
-        function sleep(ms) {
-            const wakeUpTime = Date.now() + ms;
-            while (Date.now() < wakeUpTime) { }
-        }
-
-        sleep(10000);
 
         var mapContainer = document.getElementById('map'), // 지도를 표시할 div
             mapOption = {
