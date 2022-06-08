@@ -44,7 +44,7 @@
             for (i = 0; i < json.length; i++) {
                 name[i] = json[i].name;
                 address[i] = json[i].add;
-                console.log(name[i] + " / " + address[i]);
+                //console.log(name[i] + " / " + address[i]);
             }
             asd();
         }
@@ -85,7 +85,7 @@
             var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
             var distance = [];
             // 주소로 좌표를 검색합니다
-            for (let i = 0; i < 20; i++) {
+            for (let i = 0; i < address.length; i++) {
 
                 
                 geocoder.addressSearch(address[i], function (result, status) {
@@ -98,7 +98,7 @@
                         
                     }
                     console.log(distance[i]);
-                    
+                    if (distance[i] <= 3) {
                         console.log(i + " / " + coords[i]);
                         var marker = new kakao.maps.Marker({
                             map: map, // 마커를 표시할 지도
@@ -106,7 +106,7 @@
                             title: name[i], // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
                             image: markerImage // 마커 이미지
                         });
-                    
+                    }
                 });
             }
 
