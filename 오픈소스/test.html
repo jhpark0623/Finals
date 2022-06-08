@@ -88,12 +88,12 @@
 
                 j = Math.floor( ( Math.random() * 30000 ) );
                 
-                
+                console.log(name[j] + " / " +address[j]);
                 geocoder.addressSearch(address[j], function (result, status) {
                     // 정상적으로 검색이 완료됐으면
 
                     coords[j] = new kakao.maps.LatLng(result[0].y, result[0].x);
-                    console.log(name[j] + " / " +address[j] + " / " + coords[j]);
+                    console.log(j + " / " +coords[j]);
 
 
                     var marker = new kakao.maps.Marker({
