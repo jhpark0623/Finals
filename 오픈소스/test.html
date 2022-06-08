@@ -18,8 +18,8 @@
     <script>
 
 
-        var name = [];
-        var address = [];
+        var name = ['선문대학교'];
+        var address = ['충청남도 아산시 탕정면 선문로221번길 70'];
 
 
         let xhttp = new XMLHttpRequest();
@@ -43,14 +43,14 @@
             let json = JSON.parse(jsonText); // String -> json으로 변환
 
 
-            for (i = 0; i < json.length; i++) {
+            for (i = 0; i < 1; i++) {
                 name[i] = json[i].name;
                 address[i] = json[i].add;
                 console.log(name[i], address[i]);
             }
-            asd();
+            
         }
-
+        asd();
         function asd() {
             var mapContainer = document.getElementById('map'), // 지도를 표시할 div
                 mapOption = {
