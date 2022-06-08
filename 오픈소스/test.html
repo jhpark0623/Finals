@@ -81,12 +81,11 @@
 
             var positions = [];
             for (var i = 0; i < 20; i++) {
-                positions[i] = [
-                    {
-                        title: name[i],
-                        latlng: add[i]
-                    }
-                ];
+                positions[i] =
+                {
+                    title: name[i],
+                    latlng: add[i]
+                };
             }
             var imageSize = new kakao.maps.Size(24, 35);
             var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
