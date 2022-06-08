@@ -44,7 +44,7 @@
             for (i = 0; i < json.length; i++) {
                 name[i] = json[i].name;
                 address[i] = json[i].add;
-                console.log(name[i] + " / " + address[i]);
+                //console.log(name[i] + " / " + address[i]);
             }
             asd();
         }
@@ -97,7 +97,7 @@
                         distance[i] = Distance(locPosition.getLat(), locPosition.getLng(), coords[i].getLat(), coords[i].getLng());
                         
                     }
-                    console.log(address[i], distance[i]);
+                    console.log(address[i]+"/"+ distance[i]);
                     if (distance[i] <= 3) {
                         console.log(i + " / " + coords[i]);
                         var marker = new kakao.maps.Marker({
