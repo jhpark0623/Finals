@@ -99,12 +99,12 @@
                     if (i == address.length) {
                         search = 1;
                     }
-
+                    if (search == 1) {
+                            s_search();
+                        }
                     geocoder.addressSearch(address[i], function (result, status) {
                         // 정상적으로 검색이 완료됐으면
-                        if (search == 1) {
-                            s_search(coords);
-                        }
+                        
 
 
                         coords[i] = new kakao.maps.LatLng(result[0].y, result[0].x);
@@ -127,11 +127,11 @@
                 }
             }
 
-            function s_search(coords) {
+            function s_search() {
                 for (let j = 0; j < address.length; i++) {
 
                     if (distance[j] <= 3) {
-                        console.log(j + " / " + coords[j]);
+                        console.log(j);
                         var marker = new kakao.maps.Marker({
                             map: map, // 마커를 표시할 지도
                             position: coords[j], // 마커를 표시할 위치
