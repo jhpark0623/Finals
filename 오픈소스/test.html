@@ -91,16 +91,18 @@
                 console.log(name[j] + " / " +address[j]);
                 geocoder.addressSearch(address[j], function (result, status) {
                     // 정상적으로 검색이 완료됐으면
+
                     coords[j] = new kakao.maps.LatLng(result[0].y, result[0].x);
-                   
-                });
-                console.log(j + " / " +geocoder.coords[j]);
-                var marker = new kakao.maps.Marker({
+                    console.log(i + " / " +coords[j]);
+
+
+                    var marker = new kakao.maps.Marker({
                         map: map, // 마커를 표시할 지도
-                        position: geocoder.coords[j], // 마커를 표시할 위치
+                        position: coords[j], // 마커를 표시할 위치
                         title: name[j], // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
                         image: markerImage // 마커 이미지
                     });
+                });
             }
 
             function displayMarker(locPosition) {
