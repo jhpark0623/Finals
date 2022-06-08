@@ -43,7 +43,7 @@
             let json = JSON.parse(jsonText); // String -> json으로 변환
 
 
-            for (i = 0; i < 20; i++) {
+            for (i = 0; i < json.length; i++) {
                 name[i] = json[i].name;
                 address[i] = json[i].add;
                 console.log(name[i], address[i]);
