@@ -92,11 +92,12 @@
                     // 정상적으로 검색이 완료됐으면
 
                     coords[i] = new kakao.maps.LatLng(result[0].y, result[0].x);
+
                     if (locPosition.getLat() != null && locPosition.getLng() != null && coords[i].getLat() != null && coords[i].getLng() != null) {
                         distance[i] = Distance(locPosition.getLat(), locPosition.getLng(), coords[i].getLat(), coords[i].getLng());
-                        console.log(distance[i]);
+                        
                     }
-                    
+                    console.log(locPosition.getLat());
                     if (distance[i] <= 3) {
                         console.log(i + " / " + coords[i]);
                         var marker = new kakao.maps.Marker({
