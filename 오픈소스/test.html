@@ -93,12 +93,9 @@
 
                     coords[i] = new kakao.maps.LatLng(result[0].y, result[0].x);
 
-                    if (locPosition.getLat() != null && locPosition.getLng() != null && coords[i].getLat() != null && coords[i].getLng() != null) {
-                        distance[i] = Distance(locPosition.getLat(), locPosition.getLng(), coords[i].getLat(), coords[i].getLng());
-                        
-                    }
-                    console.log(coords[i].getLat());
-                    if (distance[i] <= 3) {
+                    
+                    console.log(locPosition.getLat(), locPosition.getLng(), coords[i].getLat(), coords[i].getLng());
+                    
                         console.log(i + " / " + coords[i]);
                         var marker = new kakao.maps.Marker({
                             map: map, // 마커를 표시할 지도
@@ -106,7 +103,7 @@
                             title: name[i], // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
                             image: markerImage // 마커 이미지
                         });
-                    }
+                    
                 });
             }
 
