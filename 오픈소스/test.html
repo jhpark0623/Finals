@@ -80,7 +80,7 @@
             var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
 
             var positions = [];
-            for (var i = 0; i < 20; i++) {
+            for (var i = 0; i < address.length; i++) {
                 positions[i] = [
                     {
                         title: name[i],
@@ -104,8 +104,8 @@
 
                     var marker = new kakao.maps.Marker({
                         map: map, // 마커를 표시할 지도
-                        position: positions[i].latlng, // 마커를 표시할 위치
-                        title: positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+                        position: positions[j].latlng, // 마커를 표시할 위치
+                        title: positions[j].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
                         image: markerImage // 마커 이미지
                     });
                 });
