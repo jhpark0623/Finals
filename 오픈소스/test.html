@@ -28,9 +28,9 @@
         xhttp.send();
 
         xhttp.onreadystatechange = function () {
-            console.log("tlqkf");
+
             if (xhttp.readyState == 4 && xhttp.status == 200) {
-                console.log("tlqkf");
+
                 jsonfunc(this.responseText);
                 
             }
@@ -43,14 +43,14 @@
             let json = JSON.parse(jsonText); // String -> json으로 변환
 
 
-            for (i = 0; i < 1; i++) {
+            for (i = 0; i < json.length; i++) {
                 name[i] = json[i].name;
                 address[i] = json[i].add;
                 console.log(name[i], address[i]);
             }
-            
+            asd();
         }
-        asd();
+        
         function asd() {
             var mapContainer = document.getElementById('map'), // 지도를 표시할 div
                 mapOption = {
@@ -85,14 +85,13 @@
             var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
             // 주소로 좌표를 검색합니다
             for (var i = 0; i < address.length; i++) {
-                console.log(address[i]);
-                console.log(name[i]);
+
 
                 geocoder.addressSearch(address[i], function (result, status) {
                     // 정상적으로 검색이 완료됐으면
 
                     coords[i] = new kakao.maps.LatLng(result[0].y, result[0].x);
-                    console.log(coords[i]);
+
 
 
                     var marker = new kakao.maps.Marker({
