@@ -50,6 +50,12 @@
 
         }
 
+        function sleep(ms) {
+            const wakeUpTime = Date.now() + ms;
+            while (Date.now() < wakeUpTime) { }
+        }
+
+        sleep(5000);
 
         var mapContainer = document.getElementById('map'), // 지도를 표시할 div
             mapOption = {
