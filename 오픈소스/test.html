@@ -74,16 +74,26 @@
 
 
                     displayMarker(locPosition);
+                    search();
                 });
             }
 
             var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
 
             var positions = [];
+            var locPosition
+            kakao.maps.event.addListener(map, 'dragend', function () {
+
+                // 지도 중심좌표를 얻어옵니다 
+                locPosition = map.getCenter();
+                search();
+            });
 
             var imageSize = new kakao.maps.Size(24, 35);
             var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
             var distance = [];
+
+            function search() {
             // 주소로 좌표를 검색합니다
             for (let i = 0; i < address.length; i++) {
 
@@ -109,10 +119,9 @@
                     }
                 });
             }
+        }
 
             function displayMarker(locPosition) {
-
-                // 지도 중심좌표를 접속위치로 변경합니다
                 map.setCenter(locPosition);
             }
 
