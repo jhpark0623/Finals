@@ -44,7 +44,7 @@
             for (i = 0; i < json.length; i++) {
                 name[i] = json[i].name;
                 address[i] = json[i].add;
-                //console.log(name[i] + " / " + address[i]);
+                
             }
             asd();
         }
@@ -93,7 +93,7 @@
 
                     coords[i] = new kakao.maps.LatLng(result[0].y, result[0].x);
 
-                    if (locPosition.getLat() != null && locPosition.getLng() != null && coords[i].getLat() != null && coords[i].getLng() != null) {
+                    if (coords[i].getLat() != null && coords[i].getLng() != null) {
                         distance[i] = Distance(locPosition.getLat(), locPosition.getLng(), coords[i].getLat(), coords[i].getLng());
                         
                     }
