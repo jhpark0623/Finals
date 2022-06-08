@@ -87,6 +87,7 @@
             // 주소로 좌표를 검색합니다
             for (var i = 0; i < address.length; i++) {
                 console.log(address[i]);
+                console.log(name[i]);
 
                 geocoder.addressSearch(address[i], function (result, status) {
                     // 정상적으로 검색이 완료됐으면
