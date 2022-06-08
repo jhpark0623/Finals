@@ -108,6 +108,11 @@
                     });
                 }
 
+
+                
+
+
+
                 var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
 
                 var positions = [];
@@ -148,6 +153,18 @@
                                     image: markerImage // 마커 이미지
                                 });
                             }
+
+                            (function (marker, title) {
+                                kakao.maps.event.addListener(marker, 'click', function () {
+                                    searchDetailAddrFromCoords(presentPosition, function (result, status) {
+                                        if (status === kakao.maps.services.Status.OK) {
+                                            detailAddr = !!result[0].road_address ? result[0].road_address.address_name : result[0].address.address_name;
+                                            location.href = "https://map.kakao.com/?sName=" + detailAddr + "&eName=" + title
+                                        }
+                                    });
+                                })
+                            })
+                            
                         });
                     }
                 }
