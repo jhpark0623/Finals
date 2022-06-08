@@ -97,7 +97,7 @@
                         distance[i] = Distance(locPosition.getLat(), locPosition.getLng(), coords[i].getLat(), coords[i].getLng());
                         
                     }
-                    console.log(locPosition.getLat());
+                    console.log(coords[i].getLat());
                     if (distance[i] <= 3) {
                         console.log(i + " / " + coords[i]);
                         var marker = new kakao.maps.Marker({
