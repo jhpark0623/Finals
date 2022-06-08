@@ -18,8 +18,8 @@
     <script>
 
 
-        var name = ['강릉2차 부영아파트', '원익엘앤디', '해안선모텔', '강릉 빌리언스펜션', '메이플비치골프앤리조트'];
-        var address = ['강원도 강릉시 가작로 71', '강원도 강릉시 강동면 새목이길 110', '강원도 강릉시 강동면 안인일출길 36', '강원도 강릉시 강동면 안인진길 27-2', '강원도 강릉시 강동면 염전길 255'];
+        var name = [];
+        var address = [];
 
 
         let xhttp = new XMLHttpRequest();
@@ -43,7 +43,6 @@
             let json = JSON.parse(jsonText); // String -> json으로 변환
 
 
-            // 접근법 1
             for (i = 0; i < 20; i++) {
                 name[i] = json[i].name;
                 address[i] = json[i].add;
