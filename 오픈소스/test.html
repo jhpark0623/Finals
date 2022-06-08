@@ -8,7 +8,7 @@
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <style>
         .container {
-        width: 100%;
+        width: 80%;
         height: 100%;
         text-align: left;
         position: relative;
@@ -73,10 +73,10 @@
                     address[i] = json[i].add;
 
                 }
-                asd();
+                map();
             }
 
-            function asd() {
+            function map() {
                 var mapContainer = document.getElementById('map'), // 지도를 표시할 div
                     mapOption = {
                         center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
@@ -162,7 +162,7 @@
                                         console.log("tlqkf");
                                         if (status === kakao.maps.services.Status.OK) {
                                             detailAddr = !!result[0].road_address ? result[0].road_address.address_name : result[0].address.address_name;
-                                            location.href = "https://map.kakao.com/"
+                                            location.href = "https://map.kakao.com/?sName="+detailAddr+"&eName="+title
                                         }
                                     });
                                 })
