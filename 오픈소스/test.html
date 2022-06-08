@@ -145,7 +145,7 @@
                             }
                             console.log(address[i] + "/" + distance[i]);
                             if (distance[i] <= 3) {
-                                console.log(i + " / " + coords[i]);
+                                
                                 var marker = new kakao.maps.Marker({
                                     map: map, // 마커를 표시할 지도
                                     position: coords[i], // 마커를 표시할 위치
@@ -153,8 +153,10 @@
                                     image: markerImage // 마커 이미지
                                 });
                                 (function (marker, title) {
+                                    
                                 kakao.maps.event.addListener(marker, 'click', function () {
                                     searchDetailAddrFromCoords(presentPosition, function (result, status) {
+                                        console.log("tlqkf");
                                         if (status === kakao.maps.services.Status.OK) {
                                             detailAddr = !!result[0].road_address ? result[0].road_address.address_name : result[0].address.address_name;
                                             location.href = "https://map.kakao.com/"
