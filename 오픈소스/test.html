@@ -83,6 +83,7 @@
 
             var imageSize = new kakao.maps.Size(24, 35);
             var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+            var distance = [];
             // 주소로 좌표를 검색합니다
             for (let i = 0; i < 20; i++) {
 
@@ -91,10 +92,12 @@
                     // 정상적으로 검색이 완료됐으면
 
                     coords[i] = new kakao.maps.LatLng(result[0].y, result[0].x);
+                    if (locPosition.getLat() != null && locPosition.getLng() != null && coords[i].getLat() != null && coords[i].getLng() != null) {
+                        distance[i] = Distance(locPosition.getLat(), locPosition.getLng(), coords[i].getLat(), coords[i].getLng());
+                        console.log(distance[i]);
+                    }
                     
-                    var distance = Distance(locPosition.getLat(), locPosition.getLng(), coords[i].getLat(), coords[i].getLng());
-                    console.log(distance);
-                    if (distance <= 3) {
+                    if (distance[i] <= 3) {
                         console.log(i + " / " + coords[i]);
                         var marker = new kakao.maps.Marker({
                             map: map, // 마커를 표시할 지도
