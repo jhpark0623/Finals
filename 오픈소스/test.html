@@ -86,7 +86,7 @@
             // 주소로 좌표를 검색합니다
             for (var i = 0; i < 20; i++) {
 
-                j = Math.floor( ( Math.random() * 10 ) );
+                j = Math.floor( ( Math.random() * 30000 ) );
 
                 geocoder.addressSearch(address[j], function (result, status) {
                     // 정상적으로 검색이 완료됐으면
