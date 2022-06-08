@@ -87,7 +87,7 @@
             for (let i = 0; i < address.length; i++) {
 
                 console.log(name[i] + " / " + address[i]);
-                geocoder.addressSearch(address[j], function (result, status) {
+                geocoder.addressSearch(address[i], function (result, status) {
                     // 정상적으로 검색이 완료됐으면
 
                     coords[i] = new kakao.maps.LatLng(result[0].y, result[0].x);
