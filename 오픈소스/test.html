@@ -88,6 +88,7 @@
                 var geocoder = new kakao.maps.services.Geocoder(); // 주소-좌표 변환 객체를 생성합니다
                 var coords = [];
                 var locPosition;
+                let presentPosition;
 
                 if (navigator.geolocation) {
 
@@ -99,6 +100,8 @@
 
                         locPosition = new kakao.maps.LatLng(lat, lon) // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
 
+                        presentPosition = locPosition;
+                        
                         var marker = new kakao.maps.Marker({
                             position: locPosition
                         });
