@@ -18,8 +18,8 @@
     <script>
 
 
-        var name = ['선문대학교'];
-        var address = ['충청남도 아산시 탕정면 갈산리'];
+        var name = [];
+        var address = [];
 
 
         let xhttp = new XMLHttpRequest();
@@ -36,8 +36,6 @@
             }
         }
 
-        
-
         function jsonfunc(jsonText) {
 
             let json = JSON.parse(jsonText); // String -> json으로 변환
@@ -46,7 +44,7 @@
             for (i = 0; i < json.length; i++) {
                 name[i] = json[i].name;
                 address[i] = json[i].add;
-                console.log(name[i], address[i]);
+                console.log(name[i] + " / " +address[i]);
             }
             asd();
         }
@@ -55,7 +53,7 @@
             var mapContainer = document.getElementById('map'), // 지도를 표시할 div
                 mapOption = {
                     center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-                    level: 3 // 지도의 확대 레벨
+                    level: 4 // 지도의 확대 레벨
                 };
 
             var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
