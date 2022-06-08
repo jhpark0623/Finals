@@ -84,7 +84,7 @@
             var imageSize = new kakao.maps.Size(24, 35);
             var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
             // 주소로 좌표를 검색합니다
-            for (let i = 0; i < address.length; i++) {
+            for (let i = 0; i < 20; i++) {
 
                 
                 geocoder.addressSearch(address[i], function (result, status) {
@@ -93,8 +93,9 @@
                     coords[i] = new kakao.maps.LatLng(result[0].y, result[0].x);
                     
                     var distance = Distance(locPosition.getLat(), locPosition.getLng(), coords[i].getLat(), coords[i].getLng());
-                    console.log(i + " / " + coords[i]);
+                    console.log(distance);
                     if (distance <= 3) {
+                        console.log(i + " / " + coords[i]);
                         var marker = new kakao.maps.Marker({
                             map: map, // 마커를 표시할 지도
                             position: coords[i], // 마커를 표시할 위치
