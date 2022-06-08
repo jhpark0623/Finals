@@ -87,24 +87,19 @@
             for (var i = 0; i < 20; i++) {
 
                 j = Math.floor( ( Math.random() * 30000 ) );
-                positions[j] = 
-                    {
-                        title: name[j],
-                        latlng: address[j]
-                    }
-                ;
-                console.log(positions[j].latlng + " / " +positions[j].title);
-                geocoder.addressSearch(positions[j].latlng, function (result, status) {
+                
+                
+                geocoder.addressSearch(address[j], function (result, status) {
                     // 정상적으로 검색이 완료됐으면
 
                     coords[j] = new kakao.maps.LatLng(result[0].y, result[0].x);
-
+                    console.log(name[j] + " / " +address[j] + " / " + cpprds[j]);
 
 
                     var marker = new kakao.maps.Marker({
                         map: map, // 마커를 표시할 지도
                         position: coords[j], // 마커를 표시할 위치
-                        title: positions[j].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+                        title: name[j], // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
                         image: markerImage // 마커 이미지
                     });
                 });
