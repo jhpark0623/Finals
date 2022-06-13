@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>전기차 충전소 위치 찾기</title>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <style>
+        .container {
+        width: 80%;
+        height: 100%;
+        text-align: left;
+        position: relative;
+        z-index: 1;
+        background: #ffffff;
+    }
+    .first-div {
+        font-size: xx-large; 
+        font-weight: bolder; 
+        height: 70px; 
+        display: flex; 
+        justify-content: center; 
+        align-items: center; 
+        position: relative;
+        font-family: 'Nanum Brush Script', cursive;
+    }
+    
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1 class="name">
+            전기차 충전소 위치 찾기 (충청도)
+        </h1>
+
+        <h2 class="map">
+        <div id="map" style="width:100%;height:100vh;"></div>
+
+        <script type="text/javascript"
+            src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2beedd779b41551797a20a14f71a157f&libraries=services,clusterer,drawing"></script>
+
+        <script>
+
+
+            const name = [];
+            var address = [];
+
+
+            let xhttp = new XMLHttpRequest();
+
+            xhttp.open("GET", "electric vehicle heavy station.json", true);
+            xhttp.send();
+
+            xhttp.onreadystatechange = function () {
+
+                if (xhttp.readyState == 4 && xhttp.status == 200) {
+
+                    jsonfunc(this.responseText);
+
+                }
+            }
+
+            function jsonfunc(jsonText) {
+
+                let json = JSON.parse(jsonText); // String -> json으로 변환
+
+
+                for (i = 0; i < json.length; i++) {
+                    name[i] = json[i].name;
+                    address[i] = json[i].add;
+
+                }
+                map();
+            }
+
+            function map() {
+                var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+                    mapOption = {
+                        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+                        level: 4 // 지도의 확대 레벨
+                    };
+
+                var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+                var geocoder = new kakao.maps.services.Geocoder(); // 주소-좌표 변환 객체를 생성합니다
+                var coords = [];
+                var locPosition;
+                let presentPosition;
+
+                if (navigator.geolocation) {
+
+                    // GeoLocation을 이용해서 접속 위치를 얻어옵니다
+                    navigator.geolocation.getCurrentPosition(function (position) {
+
+                        var lat = position.coords.latitude, // 위도
+                            lon = position.coords.longitude; // 경도
+
+                        locPosition = new kakao.maps.LatLng(lat, lon) // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
+
+                        presentPosition = locPosition;
+                        
+                        
+
+                        displayMarker(locPosition);
+                        search();
+                    });
+                }
+
+
+                
+
+
+
+                var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+
+                var positions = [];
+                var locPosition
+                kakao.maps.event.addListener(map, 'dragend', function () {
+
+                    // 지도 중심좌표를 얻어옵니다 
+                    locPosition = map.getCenter();
+                    search();
+                });
+
+                var imageSize = new kakao.maps.Size(24, 35);
+                var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+                var distance = [];
+
+                function search() {
+
+                    // 주소로 좌표를 검색합니다
+                    for (let i = 0; i < address.length; i++) {
+
+
+                        geocoder.addressSearch(address[i], function (result, status) {
+                            // 정상적으로 검색이 완료됐으면
+
+                            coords[i] = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+                            if (coords[i].getLat() != null && coords[i].getLng() != null) {
+                                distance[i] = Distance(locPosition.getLat(), locPosition.getLng(), coords[i].getLat(), coords[i].getLng());
+
+                            }
+                            console.log(address[i] + "/" + distance[i]);
+                            if (distance[i] <= 3) {
+                                
+                                var marker = new kakao.maps.Marker({
+                                    map: map, // 마커를 표시할 지도
+                                    position: coords[i], // 마커를 표시할 위치
+                                    title: name[i], // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+                                    image: markerImage // 마커 이미지
+                                });
+                                console.log("tlqkf");
+                                (function (marker, title) {
+                                    
+                                kakao.maps.event.addListener(marker, 'click', function () {
+                                    searchDetailAddrFromCoords(presentPosition, function (result, status) {
+                                        console.log("tlqkf");
+                                        if (status === kakao.maps.services.Status.OK) {
+                                            detailAddr = !!result[0].road_address ? result[0].road_address.address_name : result[0].address.address_name;
+                                            location.href = "https://map.kakao.com/?sName="+detailAddr+"&eName="+title
+                                        }
+                                    });
+                                })
+                            })
+                            }
+
+                            
+                            
+                        });
+                    }
+                }
+
+
+                function displayMarker(locPosition) {
+                    map.setCenter(locPosition);
+                }
+
+                function Distance(lat1, lng1, lat2, lng2) {
+                    function deg2rad(deg) {
+                        return deg * (Math.PI / 180)
+                    }
+
+                    var R = 6371; // Radius of the earth in km
+                    var dLat = deg2rad(lat2 - lat1);  // deg2rad below
+                    var dLon = deg2rad(lng2 - lng1);
+                    var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+                    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+                    var d = R * c; // Distance in km
+                    return d;
+                }
+            }
+        </script>
+        </h2>
+    </div>
+</body>
+
+</html>
